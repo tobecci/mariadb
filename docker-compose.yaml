@@ -1,0 +1,25 @@
+version: '2.4.1'
+
+services:
+  db:
+    build:
+      dockerfile: ./dockerfiles/mariadb.dockerfile
+    ports:
+      - '8806:3306'
+    container_name: mariadb.db
+    environment:
+      - MARIADB_ROOT_PASSWORD=tobecci
+      - MARIADB_DATABASE=default_database
+      - MARIADB_USER=tobecci
+      - MARIADB_PASSWORD=tobecci
+    volumes:
+      - /home/tobecci/Documents/dev/docker/DockerVolumes/mariadb:/var/lib/mysql
+  phpmyadmin:
+    build:
+      dockerfile: ./dockerfiles/phpmyadmin.dockerfile
+    container_name: mariadb.phpmyadmin
+    ports:
+      - '8801:80'
+    environment:
+      - PMA_HOST=db
+    
